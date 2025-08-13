@@ -332,13 +332,13 @@ export const HomePage = ({ propsData }) => {
   slidesPerView={1}
             speed={600}
             parallax={true}
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            //   pauseOnMouseEnter: true,
-            // }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             navigation={true}
-            modules={[Pagination, Navigation]}
+            modules={[Pagination, Navigation,Autoplay]}
             pagination={{ clickable: true }}
             className="mySwiper"
           >
