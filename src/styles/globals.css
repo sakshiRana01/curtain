@@ -22,12 +22,25 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Roboto", sans-serif;
+  margin: 0px;
 }
 
 .container {
     max-width: 1300px;
     width: 100%;
     margin: 0px auto;
+}
+figure{
+      margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+p{
+  margin: 0px;
+}
+h2{
+  margin: 0px;
 }
 @media(max-width:767px){
   .container{

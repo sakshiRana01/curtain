@@ -1,286 +1,257 @@
-import styled from "styled-components";
-import { FaRegHeart } from "react-icons/fa";
-import { FiShoppingBag } from "react-icons/fi";
-import { CiSearch } from "react-icons/ci";
-import { GiHamburgerMenu } from "react-icons/gi";
 import React, { useState } from "react";
-import { RxCross1 } from "react-icons/rx";
-import { IoMdArrowDropdown } from "react-icons/io";
+import styled from "styled-components";
+import { FaShoppingCart, FaHeart, FaBars, FaTimes } from "react-icons/fa";
+import { CiSearch } from "react-icons/ci";
 
-export const HeaderWrapper = styled.header`
+const HeaderWrapper = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  background: rgb(13 12 12 / 80%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 0px;
+`;
+
+const Container = styled.div`
+  width: 95%;
+  margin: auto;
+  padding: 5px 20px;
   display: flex;
-  align-items: center;
-  background-color: #ffffff;
   justify-content: space-between;
-  padding: 20px 5%;
+  align-items: center;
+`;
 
-    position: fixed;
-    top: 0;
-    z-index: 10;
-    width: 100%;
-    color: #fff;
-    background: linear-gradient(45deg, #00000091, #000000c4);
+const Logo = styled.div`
+  background: linear-gradient(to right, #d29a5c, #e5c7a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
+  font-weight: bolder;
+  font-style: normal;
+  font-family: "Playwrite AU QLD", cursive;
+`;
 
-  .left-section {
-    display: flex;
-    align-items: baseline;
-    gap: 20%;
-
-    .logo {
-      background: linear-gradient(to right, #d29a5c, #e5c7a6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 25px;
-      font-weight: bolder;
-      font-style: normal;
-      font-family: "Playwrite AU QLD", cursive;
-    }
-
-    .categories {
-      display: flex;
-      align-items: center;
-      gap: 35px;
-
-      .categories-item {
-        position: relative;
-
-        .categories-txt {
-          font-size: 16px;
-          font-weight: 500;
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-
-          svg {
-            font-size: 25px;
-            margin-left: 3px;
-          }
-        }
-
-        &:hover .categories-txt {
-          border-bottom: 2px solid #000;
-        }
-
-        &:hover .subcategories {
-          display: flex;
-        }
-
-        .subcategories {
-          display: none;
-          position: absolute;
-          top: 28px;
-          flex-direction: column;
-          background: #b28b5e;
-          padding: 10px;
-          font-size: 16px;
-          color: #fff;
-          font-weight: 500;
-          border-bottom-left-radius: 5px;
-          border-bottom-right-radius: 5px;
-          z-index: 19;
-
-          a {
-            color: #fff;
-            text-decoration: none;
-            margin: 4px 0;
-          }
-        }
-      }
-    }
-  }
-
-  .right-section {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-
-    .search-bar {
-      display: flex;
-      border: 1px solid #e5e6e7;
-      padding: 10px 52px 10px 20px;
-      border-radius: 30px;
-      position: relative;
-
-      .search-icon {
-        background-color: #b28b5f;
-        width: 40px;
-        height: 41px;
-        border-radius: 50px;
-        position: absolute;
-        right: 1px;
-        top: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-          font-size: 20px;
-          color: #ffffff;
-        }
-      }
-    }
-
-    span svg {
-      font-size: 18px;
-      font-weight: 500;
-    }
-
-    .login-div {
-      .login-txt {
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-      }
-
-      &:hover {
-        color: #b28b5f;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .hamburger {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-  }
-
+const Nav = styled.nav`
+  display: flex;
+  gap: 20px;
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;
+  }
+`;
 
-    .left-section {
-      width: 100%;
-      justify-content: space-between;
-    }
+const NavItem = styled.div`
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  &:hover > div {
+    display: block;
+  }
+`;
 
-    .categories {
-      display: none !important;
-      flex-direction: column;
-      position: absolute;
-      background: #fff;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 100;
+const Dropdown = styled.div`
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #b28b5f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  min-width: 150px;
+  z-index: 10;
 
-      .categories-item {
-        width: 100%;
-        .categories-txt {
-           border-bottom: 2px solid transparent !important;
-        }
-        .subcategories {
-          position: relative;
-          top: 17px ;
-          display: none !important;
-          background: #b28b5e;
-          margin-top: 10px;
-          width: 100%;
-          a {
-            color: #fff;
-          }
-        }
-
-        &.active .subcategories {
-          display: flex !important;
-        }
-      }
-    }
-
-    .categories.open {
-      display: flex !important;
-      align-items: flex-start;
-    }
-
-    .hamburger {
-      display: block;
-    }
-
-    .right-section {
-      display: none;
+  a {
+    display: block;
+    padding: 8px 12px;
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      background: #f5f5f5;
+      color: #000;
     }
   }
 `;
 
-export const Header = ({ headerData }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(null);
+const RightSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  svg {
+    color: #fff;
+  }
+  .search-bar {
+    display: flex;
+    border: 1px solid #e5e6e7;
+    padding: 15px 52px 10px 20px;
+    border-radius: 30px;
+    position: relative;
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
+    input {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      outline: none;
+    }
 
-  const handleCategoryClick = (index) => {
-    setActiveCategory((prev) => (prev === index ? null : index));
-  };
+    .search-icon {
+      background-color: #b28b5f;
+      width: 40px;
+      height: 41px;
+      border-radius: 50px;
+      position: absolute;
+      right: 1px;
+      top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        font-size: 20px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Button = styled.button`
+  border: 1px solid ${({ primary }) => (primary ? "#949494ff" : "#ccc")};
+  background: ${({ primary }) => (primary ? "#3d3f42ff" : "transparent")};
+  color: white;
+  padding: 6px 19px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background: ${({ primary }) => (primary ? "#0056b3" : "#f5f5f5")};
+    color: ${({ primary }) => (primary ? "white" : "black")};
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const MobileMenu = styled.div`
+  @media (min-width: 769px) {
+    display: none;
+  }
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+
+  details {
+    margin-bottom: 10px;
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 5px 0;
+    }
+    a {
+      display: block;
+      padding: 5px 0 5px 15px;
+      text-decoration: none;
+      color: black;
+      &:hover {
+        color: #007bff;
+      }
+    }
+  }
+`;
+
+export const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: "Services", sub: ["Web Development", "Design", "SEO"] },
+    { name: "About", sub: ["Our Team", "Mission", "Careers"] },
+    { name: "Contact Us", sub: ["Email", "Location", "Support"] },
+  ];
 
   return (
     <HeaderWrapper>
-      <div className="left-section">
-        <h2 className="logo">
-          <a >Homies</a>
-        </h2>
+      <Container>
+        <Logo>Homies</Logo>
 
-        <div className="hamburger" onClick={toggleMenu}>
-          {menuOpen ? <RxCross1 /> : <GiHamburgerMenu />}
-        </div>
-
-        <div className={`categories ${menuOpen ? "open" : ""}`}>
-          {headerData.map((item, index) => (
-            <div
-              key={index}
-              className={`categories-item ${
-                activeCategory === index ? "active" : ""
-              }`}
-            >
-              <h3
-                className="categories-txt"
-                onClick={() => handleCategoryClick(index)}
-              >
-                <span>{item.title}</span>
-                {item?.subcategories && <IoMdArrowDropdown />}
-              </h3>
-              {item?.subcategories && (
-                <div className="subcategories">
-                  {item.subcategories.map((subcat, subIndex) => (
-                    <a href={subcat.url} key={subIndex}>
-                      {subcat.title}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
+        <Nav>
+          {navItems.map((item) => (
+            <NavItem key={item.name}>
+              {item.name}
+              <Dropdown>
+                {item.sub.map((subItem) => (
+                  <a key={subItem} href="#">
+                    {subItem}
+                  </a>
+                ))}
+              </Dropdown>
+            </NavItem>
           ))}
-        </div>
-      </div>
+        </Nav>
 
-      <div className="right-section">
-        <div className="search-bar">
-          <input type="text" placeholder="Search..." />
-          <span className="search-icon">
-            <a >
+        <RightSection>
+          <div className="search-bar">
+            <input type="text" placeholder="Search..." id="name" name="input" />
+            <span className="search-icon">
               <CiSearch />
-            </a>
-          </span>
-        </div>
+            </span>
+          </div>
+          <FaShoppingCart style={{ cursor: "pointer" }} />
+          <FaHeart style={{ cursor: "pointer" }} />
+          <Button>Login</Button>
+          <Button primary>Signup</Button>
+        </RightSection>
 
-        <span>
-          <a >
-            <FaRegHeart />
-          </a>
-        </span>
-        <span>
-          <a >
-            <FiShoppingBag />
-          </a>
-        </span>
+        <MobileMenuButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </MobileMenuButton>
+      </Container>
 
-        <div className="login-div">
-          <p className="login-txt">Login/Signup</p>
-        </div>
-      </div>
+      {mobileMenuOpen && (
+        <MobileMenu>
+          {navItems.map((item) => (
+            <details key={item.name}>
+              <summary>{item.name}</summary>
+              {item.sub.map((subItem) => (
+                <a key={subItem} href="#">
+                  {subItem}
+                </a>
+              ))}
+            </details>
+          ))}
+          <input
+            type="text"
+            placeholder="Search..."
+            style={{ width: "100%", marginTop: "10px" }}
+          />
+          <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <FaShoppingCart />
+            <FaHeart />
+          </div>
+          <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
+            <Button>Login</Button>
+            <Button primary>Signup</Button>
+          </div>
+        </MobileMenu>
+      )}
     </HeaderWrapper>
   );
 };

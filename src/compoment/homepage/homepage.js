@@ -16,53 +16,40 @@ export const HomePageWrapper = styled.section`
     background: #000;
   }
   .swiper-pagination-bullet {
-  background-color: gray;
-  opacity: 0.7;
+    background-color: gray;
+    opacity: 0.7;
     width: 15px;
-  height: 15px;
-}
+    height: 15px;
+  }
 
-.swiper-pagination-bullet-active {
-  background-color: black;
-  opacity: 1;
+  .swiper-pagination-bullet-active {
+    background-color: black;
+    opacity: 1;
+  }
 
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  color: black; /* Customize arrow color */
-}
-  .hero-banner{
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: black; /* Customize arrow color */
+  }
+  .hero-banner {
     width: 100%;
     height: 720px;
-    position: relative;
   }
   .hero-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30%;
     position: absolute;
     left: 10%;
     z-index: 10;
-    top: 36%;
+    height: 100%;
+    top: 2%;
   }
   .swiper-slide {
     font-size: 18px;
     color: #fff;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-  }
-
-  .parallax-bg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 130%;
-    height: 100%;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: center;
   }
 
   .swiper-slide .title {
@@ -90,6 +77,7 @@ export const HomePageWrapper = styled.section`
     font-weight: 400;
     color: black;
     line-height: normal;
+    margin: 0;
   }
   .shop-btn {
     padding: 10px 40px;
@@ -104,7 +92,7 @@ export const HomePageWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 45px;
   }
 
   .swiper-slide .text {
@@ -119,151 +107,216 @@ export const HomePageWrapper = styled.section`
   .swiper-button-next {
     display: none;
   }
-.offer-container{
+  .offer-container {
     padding: 60px 0px 40px;
-  .offer-section {
-    padding: 30px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    .offer-block{
+    .offer-section {
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      .offer-block {
         display: flex;
         flex-direction: column;
         align-items: center;
-    .heading{
-        font-size: 26px;
-    font-weight: 600;
- 
+        gap: 5px;
+        .heading {
+          font-size: 26px;
+          font-weight: 600;
+        }
+        .sub-heading {
+          font-size: 12px;
+        }
+        button {
+          padding: 10px 20px;
+          background-color: #000;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 500;
+        }
+      }
     }
-    .sub-heading{
-        font-size: 12px;
-
-    }
-    button{
-        padding: 10px 20px;
-        background-color: #000;
-        color: #fff;
-        font-size: 15px;
-        font-weight: 500;
-    }
-}
   }
-}
-.offer-grid-container{
+  .offer-grid-container {
     padding: 40px 0px;
-}
-.offer-grid-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 20px;
-}
-
-.block-0 {
-  grid-row:1/ span 2;
-}
-
-.offer-grid-block {
-  position: relative;
-  overflow: hidden;
-  height: 300px;
-  border-radius: 10px;
-}
-.offer-grid-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 20px;
-  height: auto; /* can also set fixed height if needed */
-}
-
-.block-0 {
-  grid-row: 1 / span 2;
-}
-
-.offer-grid-block {
-  position: relative;
-  background: #f2f2f2;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 100%;
-  min-height: 200px;
-}
-
-.offer-bg {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-
-.offer-overlay {
-  width: 100%;
-  padding: 20px 30px;
-  color: white;
-}
-
-
-.offer-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.offer-subtitle {
-  font-size: 0.9rem;
-  margin: 5px 0;
-}
-
-.offer-button {
-  padding: 4px 11px;
-  background: #fff;
-  color: #000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  margin-top: 10px;
-}
-
-.offer-button:hover {
-  background: #000;
-  color: #fff;
-}
-.products-container{
-  padding: 40px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
- 
-  .heading{
-  font-size: 40px;
-    font-weight: 600;
-    color: #424242;
   }
-  .sub-heading{
-    font-size: 16px;
+  .offer-grid-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .block-0 {
+    grid-row: 1 / span 2;
+  }
+
+  .offer-grid-block {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    border-radius: 10px;
+    width: 100%;
+  }
+  .offer-grid-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+    height: auto; /* can also set fixed height if needed */
+  }
+
+  .block-0 {
+    grid-row: 1 / span 2;
+  }
+
+  .offer-grid-block {
+    position: relative;
+    background: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+    min-height: 200px;
+  }
+
+  .offer-bg {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .offer-overlay {
+    width: 100%;
+    padding: 20px 30px;
+    color: white;
+  }
+
+  .offer-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .offer-subtitle {
+    font-size: 0.9rem;
+    margin: 5px 0;
+  }
+
+  .offer-button {
+    padding: 8px 11px;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     font-weight: 500;
-    color: #757575;
-    text-align: center;
+    margin-top: 10px;
   }
-}
 
-@media (max-width:767px){
-  .offer-section{
-    flex-direction: column;
+  .offer-button:hover {
+    background: #000;
+    color: #fff;
+  }
+  .products-container {
+    padding: 40px 0px;
+    display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+
+    .heading {
+      font-size: 40px;
+      font-weight: 600;
+      color: #424242;
+    }
+    .sub-heading {
+      font-size: 16px;
+      font-weight: 500;
+      color: #757575;
+      text-align: center;
+    }
   }
-  .offer-grid-section{
-    grid-template-columns: 1fr;
+
+  @media (max-width: 767px) {
+    .offer-section {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .offer-grid-section {
+      grid-template-columns: 1fr;
+    }
   }
-}
+  @media (max-width: 767px) {
+    /* HERO SECTION FIX */
+  
+     .hero-banner {
+    width: 100vw; /* Ensure full width on mobile */
+    height: 420px;
+  }
+  .hero-section {
+    left: 0; /* Remove container offset */
+    width: 100%; /* Full width text overlay */
+    padding: 20px;
+  }
+    .hero-section {
+      left: 5%;
+      top: 0;
+      justify-content: flex-start;
+      padding: 20px;
+    }
+    .tagline {
+      font-size: 14px;
+      &::before {
+        width: 25px;
+      }
+    }
+    .hero-title {
+      font-size: 38px;
+      line-height: 1.2;
+    }
+    .shop-btn {
+      padding: 8px 20px;
+      font-size: 13px;
+    }
+
+    /* OFFER SECTION FIX */
+    .offer-section {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+    .offer-block {
+      width: 100%;
+    }
+
+    /* OFFER GRID FIX */
+    .offer-grid-section {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 15px;
+    }
+    .offer-grid-block {
+      height: 200px;
+    }
+
+    /* PRODUCT SECTION FIX */
+    .products-container {
+      padding: 20px 0;
+      .heading {
+        font-size: 28px;
+      }
+      .sub-heading {
+        font-size: 14px;
+        padding: 0 10px;
+      }
+    }
+  }
 `;
 export const HomePage = ({ propsData }) => {
   return (
@@ -275,24 +328,29 @@ export const HomePage = ({ propsData }) => {
               "--swiper-navigation-color": "#fff",
               "--swiper-pagination-color": "#fff",
             }}
+             initialSlide={0} // 0 means first slide (index starts from 0)
+  slidesPerView={1}
             speed={600}
             parallax={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            // autoplay={{
+            //   delay: 2500,
+            //   disableOnInteraction: false,
+            //   pauseOnMouseEnter: true,
+            // }}
             navigation={true}
-             modules={[Pagination, Navigation]}
-  pagination={{ clickable: true }}
+            modules={[Pagination, Navigation]}
+            pagination={{ clickable: true }}
             className="mySwiper"
           >
-  
             {propsData.banner &&
               propsData?.banner.map((item, index) => (
                 <SwiperSlide className="title" key={index}>
                   <figure className="hero-banner">
-                    <Image src={item?.url} alt="baner-image" fill={true}></Image>
+                    <Image
+                      src={item?.url}
+                      alt="baner-image"
+                      fill={true}
+                    ></Image>
                   </figure>
                   <div className="container hero-section">
                     <div className="subtitle" data-swiper-parallax="-200">
@@ -300,61 +358,63 @@ export const HomePage = ({ propsData }) => {
                       <h1 className="hero-title">{item?.title}</h1>
                       <a className="shop-btn">Shop Now</a>
                     </div>
-                 
                   </div>
                 </SwiperSlide>
               ))}
           </Swiper>
         </div>
         <div className="offer-container container">
-            <div className="offer-section">
-        <div className="offer-block">
-            <p className="heading">Get 10% OFF</p>
-            <span className="sub-heading">ON ORDERS OVER 399</span>
-         </div>
-           <div className="offer-block">
-            <p className="heading">Get 10% OFF</p>
-            <span className="sub-heading">ON ORDERS OVER 399</span>
-         </div>  <div className="offer-block">
-            <p className="heading">Get 10% OFF</p>
-            <span className="sub-heading">ON ORDERS OVER 399</span>
-         </div>  <div className="offer-block">
-       <button>Code:Discount</button>
-         </div>
+          <div className="offer-section">
+            <div className="offer-block">
+              <p className="heading">Get 10% OFF</p>
+              <span className="sub-heading">ON ORDERS OVER 399</span>
             </div>
-
-
+            <div className="offer-block">
+              <p className="heading">Get 10% OFF</p>
+              <span className="sub-heading">ON ORDERS OVER 399</span>
+            </div>{" "}
+            <div className="offer-block">
+              <p className="heading">Get 10% OFF</p>
+              <span className="sub-heading">ON ORDERS OVER 399</span>
+            </div>{" "}
+            <div className="offer-block">
+              <button>Code:Discount</button>
+            </div>
+          </div>
         </div>
         <div className="offer-grid-container container">
-        <div className="offer-grid-section">
-          {propsData?.offergrid?.slice(0, 5).map((item, index) => (
-            <div
-              className={`offer-grid-block block-${index}`}
-              key={index}
-              style={index === 0 ? { gridRow: "1 / span 2" } : {}}
-            >
+          <div className="offer-grid-section">
+            {propsData?.offergrid?.slice(0, 5).map((item, index) => (
               <div
-                className="offer-bg"
-                style={{ backgroundImage: `url(/offers-grid.jpg)` }}
+                className={`offer-grid-block block-${index}`}
+                key={index}
+                style={index === 0 ? { gridRow: "1 / span 2" } : {}}
               >
-                <div className="offer-overlay">
-                  <p className="offer-title">{item.title}</p>
-                  <span className="offer-subtitle">{item.subtitle}</span>
-                  <button className="offer-button">Shop Now</button>
+                <div
+                  className="offer-bg"
+                  style={{
+                    backgroundImage: `url(https://apisap.fabindia.com/medias/new-arvl-sec7-21july25-1.jpg?context=bWFzdGVyfGltYWdlc3w4NjQ5MnxpbWFnZS9qcGVnfGFHSTVMMmczT1M4eE1EUXhPREV5TWpjek5UWXhPVEF2Ym1WM0xXRnlkbXd0YzJWak55MHlNV3AxYkhreU5TMHhMbXB3Wnd8YmNlZjFiNmRiOWJjNzg5MDQ1MjU3MTE4OWRhOGUzN2FjZjQ3M2UwOWU0OTU5YjE1YWMzYTE0MTljOWMwOWQzZA)`,
+                  }}
+                >
+                  <div className="offer-overlay">
+                    <p className="offer-title">{item.title}</p>
+                    <span className="offer-subtitle">{item.subtitle}</span>
+                    <button className="offer-button">Shop Now</button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-            <div className="products-container container">
-        <h2 className="heading">New Arrivals</h2>
-        <p className="sub-heading">Discover the latest trends and fresh picks — just landed and ready to shop!</p>
-  <ProductsCard/>
-
-      </div>
-      <AllCategoryList/>
-
+        <div className="products-container container">
+          <h2 className="heading">New Arrivals</h2>
+          <p className="sub-heading">
+            Discover the latest trends and fresh picks — just landed and ready
+            to shop!
+          </p>
+          <ProductsCard />
+        </div>
+        <AllCategoryList />
       </Layout>
     </HomePageWrapper>
   );
