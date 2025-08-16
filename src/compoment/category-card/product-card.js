@@ -138,25 +138,25 @@ color:#000 !important;
  
 }
 .swiper-button-prev,.swiper-button-next{
-  width: 30px;
-  height: 73px;
-  top: 35%;
-  background-color: #b28b5f;
-  border-radius: 0%;
+  width: 30px !important;
+  height: 73px !important;
+  top: 35% !important;
+  background-color: #b28b5f !important;
+  border-radius: 0% !important;
 &::after{
-  font-size: 20px;
-  color: #fff;
-  font-weight: bold;
+  font-size: 20px !important;
+  color: #fff !important;
+  font-weight: bold !important;
 }
   &:hover{
-    box-shadow: 6px 8px 8px rgb(0 0 0 / 65%);
+    box-shadow: 6px 8px 8px rgb(0 0 0 / 65%) !important;
   }
 }
 .swiper-button-next{
-  right: 0px;
+  right: 0px !important;
 }
 .swiper-button-prev{
-  left: 0px;
+  left: 0px !important;
 }
 
 
