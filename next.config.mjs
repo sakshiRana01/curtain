@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cdn.ddecor.com"], // allow images from this host
+    domains: ["cdn.ddecor.com","drapestory.in"], // allow images from this host
   },
 };
 

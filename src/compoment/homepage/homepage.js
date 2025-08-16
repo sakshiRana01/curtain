@@ -396,7 +396,7 @@ export const HomePage = ({ propsData }) => {
                 <div
                   className="offer-bg"
                   style={{
-                    backgroundImage: `url(https://apisap.fabindia.com/medias/new-arvl-sec7-21july25-1.jpg?context=bWFzdGVyfGltYWdlc3w4NjQ5MnxpbWFnZS9qcGVnfGFHSTVMMmczT1M4eE1EUXhPREV5TWpjek5UWXhPVEF2Ym1WM0xXRnlkbXd0YzJWak55MHlNV3AxYkhreU5TMHhMbXB3Wnd8YmNlZjFiNmRiOWJjNzg5MDQ1MjU3MTE4OWRhOGUzN2FjZjQ3M2UwOWU0OTU5YjE1YWMzYTE0MTljOWMwOWQzZA)`,
+                    backgroundImage: `url(https://drapestory.in/cdn/shop/files/Floral_d7910eac-be87-46ae-b460-cf03e2782be1_765x.png?v=1754019065)`,
                   }}
                 >
                   <div className="offer-overlay">

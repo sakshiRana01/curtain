@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart,FaStar } from "react-icons/fa";
 import Image from "next/image";
 import styled from "styled-components";
 import { Swiper,SwiperSlide } from "swiper/react";
@@ -61,14 +61,20 @@ export const Card = ({ hoverActive,changeHoverStyle }) => {
         >
           <figure className="product-image">
             <Image
-              src="https://cdn.ddecor.com//media/catalog/category/topselling3d_decor_aug_201824676_1_test.jpg"
+              src="https://drapestory.in/cdn/shop/files/566A_1_jpg_765x.jpg?v=1713078931"
               className="card-image"
               width={100}
               height={300}
               alt="Product"
             />
           </figure>
-
+   <div className="rating-box">
+          <div className="rating">
+            <span>3.2</span>
+            <FaStar size={13} color="#f5a623" />
+          </div>
+          <span className="purchases">| 320</span>
+        </div>
           <div className="overlay">
             <div className="sizes">
               <span>XS</span>
@@ -85,7 +91,7 @@ export const Card = ({ hoverActive,changeHoverStyle }) => {
 
         <h4 className="card-title">Dontella</h4>
         <p className="card-subdesc">Sample jewellery and Accessories</p>
-        <p className="card-amount">$4545</p>
+        <p className="card-amount">$4545 <span className="exact-price">$5555</span> <span className="current-discount">(46% OFF)</span></p>
         <div className="color-list">
           {[0, 1, 2].map((item, index) => (
             <span
@@ -194,6 +200,39 @@ export const CardWrapper = styled.section`
 
     }
   }
+
+   .rating-box {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .rating span {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .purchases {
+    font-size: 12px;
+    font-weight: 400;
+    color: #555;
+  }
  .card {
   width: 100%;
     position: relative;
@@ -225,6 +264,16 @@ export const CardWrapper = styled.section`
     font-weight: 500;
     text-align: center;
     margin-bottom: 7px;
+  }
+  .exact-price{
+  font-size: 12px;
+    text-decoration: line-through;
+    color: #878787;
+  }
+  .current-discount{
+       font-size: 13px;
+    color: #ff7100;
+    font-weight: 500;
   }
   .card-subdesc {
     font-size: 13px;
@@ -302,6 +351,9 @@ content: "";
     gap: 20px;
     transition: opacity 0.3s ease;
     border-radius: 6px;
+  }
+  .image-container{
+    position: relative;
   }
   .image-container:hover .overlay {
     opacity: 1;
