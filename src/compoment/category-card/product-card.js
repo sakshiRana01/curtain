@@ -1,98 +1,59 @@
-import React from "react";
-import { useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { IoArrowRedoCircleOutline } from "react-icons/io5";
-import { IoArrowUndoCircleOutline } from "react-icons/io5";
-
-import "swiper/css";
-import "swiper/css/navigation";
+import React, { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import Image from "next/image";
-// import required modules
-import { Pagination, Navigation } from "swiper/modules";
-import { useState } from "react";
 import styled from "styled-components";
-export const ProductsCard = ({ hoverActive }) => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+import { Swiper,SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+import { BiRightArrow } from "react-icons/bi";
+import { BiLeftArrow } from "react-icons/bi";
 
+export const ProductsCard = ({ hoverActive,changeHoverStyle }) => {
+  console.log("changeHoverStyle",changeHoverStyle)
   return (
     <ProductsCardWrapper>
       <div className="container products">
-        <button ref={prevRef} className="custom-button prev">
-          <IoArrowUndoCircleOutline />
-        </button>
-        <button ref={nextRef} className="custom-button next">
-          <IoArrowRedoCircleOutline />
-        </button>
-        <Swiper
-          breakpoints={{
-            0: {
-              slidesPerView: 1,
-            },
+   <Swiper  modules={[Navigation]} 
+   spaceBetween={20}
+   navigation={true}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1280: { slidesPerView: 4 },
+        }}
 
-            768: {
-              slidesPerView: 3,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
-          }}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            // Swiper requires elements to be available on init
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-          }}
-          spaceBetween={2}
-          modules={[Navigation]}
-          className="mySwiper"
-        >
-          <div>
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>{" "}
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>{" "}
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>{" "}
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>{" "}
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>{" "}
-            <SwiperSlide>
-              <Card hoverActive={hoverActive} />
-            </SwiperSlide>
-          </div>
-        </Swiper>
+ className="mySwiper">
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+              <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+        <SwiperSlide><Card hoverActive={hoverActive} changeHoverStyle={changeHoverStyle}/></SwiperSlide>
+
+      </Swiper>
       </div>
     </ProductsCardWrapper>
   );
 };
+
 const getColor = (index) => {
   const colors = ["#62a237c9", "#f4de36ff", "#2196f3"];
   return colors[index];
 };
 
-export const Card = ({ hoverActive }) => {
+export const Card = ({ hoverActive,changeHoverStyle }) => {
   const [selectedColor, setSelectedColor] = useState(null);
 
   const handleColorClick = (index) => {
     setSelectedColor(index);
   };
+
   return (
     <CardWrapper>
-      <div className="card">
+      <div className={`card ${changeHoverStyle =="true"?"outset":""}`}>
         <div
           className={`image-container ${
             hoverActive === "none" ? "no-hover" : ""
@@ -144,122 +105,109 @@ export const Card = ({ hoverActive }) => {
     </CardWrapper>
   );
 };
+
 export const ProductsCardWrapper = styled.section`
   width: 100%;
   position: relative;
+
   .no-hover {
     .overlay {
       display: none;
     }
   }
-  .mySwiper {
-    width: 100%;
-    height: 250px;
-    position: relative;
-    background: none !important;
-  }
 
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  .swiper-wrapper {
-    overflow: hidden;
-  }
-  .swiper-slide {
-    color: #000 !important;
-    padding: 10px 0px !important;
-  }
-  .custom-button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-  .custom-button {
-    position: absolute;
-    top: 38%;
-    transform: translateY(-50%);
-    z-index: 20;
-    /* background: black; */
-    color: #181515;
-    border: none;
-    padding: 5px 7px;
-    font-size: 50px;
-    cursor: pointer;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    background: #fff;
-    box-shadow: 2px 2px 10px 2px;
-    svg {
-      width: 46px;
-      height: 46px;
-    }
-  }
+.swiper-wrapper-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;         /* spacing between arrows and swiper */
+  position: relative;
+  width: 100%;
+}
 
-  .custom-button.prev {
-    left: -70px;
-  }
 
-  .custom-button.next {
-    right: -60px;
+.swiper-slide {
+  background: none;
+color:#000 !important;
+ 
+}
+.swiper-button-prev,.swiper-button-next{
+  width: 30px;
+  height: 73px;
+  top: 35%;
+  background-color: #b28b5f;
+  border-radius: 0%;
+&::after{
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+  &:hover{
+    box-shadow: 6px 8px 8px rgb(0 0 0 / 65%);
   }
-  .swiper-button-disabled {
-    display: none !important;
-  }
-  .swiper-button-prev,
-  .swiper-button-next {
-    z-index: 10;
-    background: #fff;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    top: 35%;
-    color: #000;
-    border: 1px solid black;
-    &::after {
-      font-size: 20px;
-      font-weight: bold;
-    }
-  }
+}
+.swiper-button-next{
+  right: 0px;
+}
+.swiper-button-prev{
+  left: 0px;
+}
 
-  .swiper-button-next {
-    right: -4%;
-  }
-  .swiper-button-prev {
-    left: -4%;
-  }
-@media (max-width: 767px) {
+
+.swiper-button-disabled{
+  display: none;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+  background: none !important;
+  padding: 10px ;
+   flex: 1;  
+   box-sizing : border-box;
+}
+
+
+
+
+  @media (max-width: 767px) {
     .custom-button {
       display: none;
     }
-.products{
-  padding: 0px !important;
-}
-    .mySwiper {
-      padding: 0px;
+    .products {
+      padding: 0px !important;
     }
 
-    .swiper-slide {
-      padding: 0 !important;
-    }
   }
 `;
+
+
 export const CardWrapper = styled.section`
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
   position: relative;
-  .card {
+  .outset{
+    &:hover{
+            box-shadow: 0 3px 16px 0 rgba(0,0,0,.11) !important;
+
+    }
+  }
+ .card {
+  width: 100%;
     position: relative;
+    transition: box-shadow .2s ease-in-out;
+    z-index: 1; /* Add this line */
+    &:hover{
+      box-shadow: inset 20px 9px 16px 20px rgba(0, 0, 0, .11);
+    }
   }
-  .product-image {
-    min-width: 307px;
-  }
+.product-image {
+  width: 100%;
+  min-width: unset;
+  height: 300px;
+}
   .card-image {
     width: 100%;
     height: 300px;
@@ -268,15 +216,18 @@ export const CardWrapper = styled.section`
   .card-title {
     margin-top: 10px;
   }
+  .card-title{
+    font-weight: 700 !important;
+  }
   .card-title,
   .card-amount {
     font-size: 15px;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
   }
   .card-subdesc {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
     text-align: center;
     color: #444444ff;
@@ -288,29 +239,19 @@ export const CardWrapper = styled.section`
     margin-top: 5px;
     align-items: center;
     justify-content: center;
+    padding-bottom: 14px;
     span {
       border: 1px solid black;
       border-radius: 50%;
       i {
-        color: red;
         border-radius: 50%;
-
         width: 22px;
         height: 22px;
-        background: red;
         display: block;
         margin: 2px;
       }
     }
   }
-  .color-list {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
-    align-items: center;
-    justify-content: center;
-  }
-
   .color-list span {
     border: 1px solid #8989898c;
     border-radius: 50%;
@@ -318,36 +259,28 @@ export const CardWrapper = styled.section`
     cursor: pointer;
     transition: border 0.2s ease;
   }
-
   .color-list span.selected {
     border: 1px solid #000;
-  }
-
-  .color-list span i {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: block;
   }
   .active-offer-wrapper {
     position: absolute;
     top: 8px;
-    right: -13px;
+    right: -8px;
     &::before {
-      content: "";
-      position: absolute;
-      top: 26px;
-      right: 0;
-      width: 14px;
-      height: 11px;
-      border-bottom-right-radius: 13px;
-      background: linear-gradient(271deg, #ff3700, #e86b488c);
+content: "";
+    position: absolute;
+    top: 25px;
+    right: 0;
+    width: 8px;
+    height: 11px;
+    border-bottom-right-radius: 13px;
+    background: linear-gradient(271deg, #ff3700, #e86b488c);
+
     }
   }
   .active-offer {
     background: linear-gradient(45deg, #e30000, #f43d0c);
     padding: 5px 13px 5px 20px;
-
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -370,27 +303,22 @@ export const CardWrapper = styled.section`
     transition: opacity 0.3s ease;
     border-radius: 6px;
   }
-
   .image-container:hover .overlay {
     opacity: 1;
   }
-
   .overlay .quick-add {
     background: #fff;
     border: none;
     padding: 8px 16px;
-    /* border-radius: 20px; */
     cursor: pointer;
     font-weight: bold;
     margin-bottom: 4px;
     width: 96%;
   }
-
   .overlay .sizes {
     display: flex;
     gap: 8px;
   }
-
   .overlay .sizes span {
     background: #fff;
     padding: 4px 10px;
@@ -398,7 +326,6 @@ export const CardWrapper = styled.section`
     font-size: 12px;
     cursor: pointer;
   }
-
   .overlay .wishlist {
     position: absolute;
     top: 10px;
@@ -407,41 +334,32 @@ export const CardWrapper = styled.section`
     font-size: 18px;
     cursor: pointer;
   }
-  .image-container:hover .overlay {
-    opacity: 1;
-  }
-    @media (max-width: 767px) {
+
+  @media (max-width: 767px) {
     .card-image {
       height: 220px;
     }
-
     .overlay {
       height: 220px;
       gap: 12px;
     }
-
     .overlay .quick-add {
       font-size: 12px;
       padding: 6px 12px;
       width: 90%;
     }
-
     .overlay .sizes span {
       font-size: 11px;
       padding: 3px 8px;
     }
-
     .card-title {
       font-size: 13px;
     }
-
     .card-subdesc {
       font-size: 11px;
     }
-
     .card-amount {
       font-size: 13px;
     }
   }
-
 `;

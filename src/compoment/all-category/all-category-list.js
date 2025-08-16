@@ -87,7 +87,7 @@ export const AllCategoryList = () => {
           {/* Add more SwiperSlide items here with other categories */}
         </Swiper>
 
-        <ProductsCard hoverActive={"none"} />
+        <ProductsCard hoverActive={"none"} changeHoverStyle={"true"}/>
         <div class="holographic-card">
           <h2>View All</h2>
         </div>
@@ -98,6 +98,7 @@ export const AllCategoryList = () => {
 
 export const AllCaregoryWrapper = styled.section`
   padding: 40px 0px;
+
 
   .content {
     text-align: center;
@@ -124,7 +125,7 @@ export const AllCaregoryWrapper = styled.section`
   }
   .active-title {
     transition: 0.5s !important;
-        background: #6225e6;
+        background: #b28b5f;
     box-shadow: 6px 6px 0 black;
     transform: skewX(-15deg);
     color: #fff;
@@ -248,7 +249,10 @@ export const AllCaregoryWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 24px;
+    background-color: #fff;     
+   box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+   padding: 40px 0px 30px;
   }
   .categories-title {
     font-size: 40px;
@@ -312,10 +316,7 @@ export const AllCaregoryWrapper = styled.section`
       padding-bottom: 15px;
     }
 
-    .swiper-button-prev,
-    .swiper-button-next {
-      display: none !important;
-    }
+
 
     .category-card {
       gap: 10px;

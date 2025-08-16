@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { FaShoppingCart, FaHeart, FaBars, FaTimes } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 
 const HeaderWrapper = styled.header`
@@ -8,10 +8,10 @@ const HeaderWrapper = styled.header`
   top: 0;
   width: 100%;
   z-index: 1000;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   background: rgb(13 12 12 / 80%);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px 0px;
+  height: 57px;
 `;
 
 const Container = styled.div`
@@ -19,8 +19,14 @@ const Container = styled.div`
   margin: auto;
   padding: 5px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  .nav-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 4rem;
+  }
 `;
 
 const Logo = styled.div`
@@ -29,8 +35,8 @@ const Logo = styled.div`
   -webkit-text-fill-color: transparent;
   font-size: 25px;
   font-weight: bolder;
-  font-style: normal;
   font-family: "Playwrite AU QLD", cursive;
+  margin-bottom: 20px;
 `;
 
 const Nav = styled.nav`
@@ -47,7 +53,17 @@ const NavItem = styled.div`
   font-size: 16px;
   font-weight: 500;
   color: white;
-  &:hover > div {
+  padding: 10px 0;
+  line-height: 1.5;
+  height: 40px;
+
+  &:hover {
+    border-bottom: 2px solid white;
+  }
+
+  /* Keep dropdown open when hovering parent OR dropdown */
+  &:hover > div,
+  & > div:hover {
     display: block;
   }
 `;
@@ -55,14 +71,14 @@ const NavItem = styled.div`
 const Dropdown = styled.div`
   display: none;
   position: absolute;
-  top: 100%;
+  top: 62px; /* Below header */
   left: 0;
   background: #b28b5f;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 6px 8px 8px rgb(0 0 0 / 65%);
   border-radius: 4px;
   overflow: hidden;
-  min-width: 150px;
-  z-index: 10;
+  min-width: 187px;
+  z-index: 999;
 
   a {
     display: block;
@@ -79,22 +95,31 @@ const Dropdown = styled.div`
 const RightSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
+  margin-bottom: 13px;
   svg {
     color: #fff;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
   }
+
   .search-bar {
     display: flex;
     border: 1px solid #e5e6e7;
-    padding: 15px 52px 10px 20px;
     border-radius: 30px;
     position: relative;
+    width: ${({ expanded }) => (expanded ? "350px" : "200px")};
+    transition: width 0.3s ease;
 
     input {
       background-color: transparent;
       border: none;
       color: #fff;
       outline: none;
+      padding: 5px 40px 5px 20px;
+      width: 100%;
+      height: 35px;
     }
 
     .search-icon {
@@ -121,17 +146,34 @@ const RightSection = styled.div`
   }
 `;
 
-const Button = styled.button`
-  border: 1px solid ${({ primary }) => (primary ? "#949494ff" : "#ccc")};
-  background: ${({ primary }) => (primary ? "#3d3f42ff" : "transparent")};
-  color: white;
-  padding: 6px 19px;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background: ${({ primary }) => (primary ? "#0056b3" : "#f5f5f5")};
-    color: ${({ primary }) => (primary ? "white" : "black")};
+const UserMenu = styled.div`
+ position: absolute;
+    top: 50px;
+    left: -64px;
+    background: #b28b5f;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 6px 8px 8px rgb(0 0 0 / 65%);
+    min-width: 194px;
+    color: #fff;
+  .welcome {
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    &:hover {
+      background: #f5f5f5;
+    }
   }
 `;
 
@@ -180,6 +222,9 @@ const MobileMenu = styled.div`
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchExpanded, setSearchExpanded] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
   const navItems = [
     { name: "Services", sub: ["Web Development", "Design", "SEO"] },
@@ -187,38 +232,87 @@ export const Header = () => {
     { name: "Contact Us", sub: ["Email", "Location", "Support"] },
   ];
 
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+useEffect(() => {
+  const handleScroll = () => {
+    const headerbody = document.getElementById("header");
+    if (window.scrollY > 0) {
+      headerbody.style.background = "black";
+    } else {
+      headerbody.style.background = "rgb(13 12 12 / 73%)";
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  
+  // Run on mount in case the page is already scrolled
+  handleScroll();
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
+
   return (
-    <HeaderWrapper>
+    <HeaderWrapper id="header">
       <Container>
         <Logo>Homies</Logo>
+        <div className="nav-div">
+          <Nav>
+            {navItems.map((item) => (
+              <NavItem key={item.name}>
+                {item.name}
+                <Dropdown>
+                  {item.sub.map((subItem) => (
+                    <a key={subItem} href="#">
+                      {subItem}
+                    </a>
+                  ))}
+                </Dropdown>
+              </NavItem>
+            ))}
+          </Nav>
 
-        <Nav>
-          {navItems.map((item) => (
-            <NavItem key={item.name}>
-              {item.name}
-              <Dropdown>
-                {item.sub.map((subItem) => (
-                  <a key={subItem} href="#">
-                    {subItem}
-                  </a>
-                ))}
-              </Dropdown>
-            </NavItem>
-          ))}
-        </Nav>
-
-        <RightSection>
-          <div className="search-bar">
-            <input type="text" placeholder="Search..." id="name" name="input" />
-            <span className="search-icon">
-              <CiSearch />
-            </span>
-          </div>
-          <FaShoppingCart style={{ cursor: "pointer" }} />
-          <FaHeart style={{ cursor: "pointer" }} />
-          <Button>Login</Button>
-          <Button primary>Signup</Button>
-        </RightSection>
+          <RightSection expanded={searchExpanded}>
+            <div
+              className="search-bar"
+              onClick={() => setSearchExpanded(true)}
+            >
+              <input
+                type="text"
+                placeholder="Search..."
+                onBlur={() => setSearchExpanded(false)}
+              />
+              <span className="search-icon">
+                <CiSearch />
+              </span>
+            </div>
+            <div style={{ position: "relative" }} ref={userMenuRef}>
+              <FaUser onClick={() => setUserMenuOpen((prev) => !prev)} />
+              {userMenuOpen && (
+                <UserMenu>
+                  <div className="welcome">Welcome</div>
+                  <div></div>
+                  <button>Login /Signup</button>
+             
+                </UserMenu>
+              )}
+            </div>
+            <FaShoppingCart />
+            <FaHeart />
+          </RightSection>
+        </div>
 
         <MobileMenuButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -245,10 +339,7 @@ export const Header = () => {
           <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
             <FaShoppingCart />
             <FaHeart />
-          </div>
-          <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-            <Button>Login</Button>
-            <Button primary>Signup</Button>
+            <FaUser />
           </div>
         </MobileMenu>
       )}

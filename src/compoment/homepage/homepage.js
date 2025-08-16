@@ -10,6 +10,7 @@ import { Autoplay, Parallax, Pagination, Navigation } from "swiper/modules";
 import { ProductsCard } from "../category-card/product-card";
 import { AllCategoryList } from "../all-category/all-category-list";
 export const HomePageWrapper = styled.section`
+background-color: rgba(241,242,244,1.00);
   .swiper {
     width: 100%;
     height: 100%;
@@ -27,10 +28,6 @@ export const HomePageWrapper = styled.section`
     opacity: 1;
   }
 
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: black; /* Customize arrow color */
-  }
   .hero-banner {
     width: 100%;
     height: 720px;
@@ -103,12 +100,9 @@ export const HomePageWrapper = styled.section`
       height: 500px;
     }
   }
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none;
-  }
+
   .offer-container {
-    padding: 60px 0px 40px;
+    padding: 60px 20px 40px;
     .offer-section {
       padding: 30px 40px;
       display: flex;
@@ -116,6 +110,8 @@ export const HomePageWrapper = styled.section`
       align-items: center;
       box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
+          background-color: rgb(255, 255, 255);
+
       .offer-block {
         display: flex;
         flex-direction: column;
@@ -142,10 +138,14 @@ export const HomePageWrapper = styled.section`
     padding: 40px 0px;
   }
   .offer-grid-section {
+    padding: 20px 25px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+        box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+
     gap: 20px;
+    background-color: #fff;
   }
 
   .block-0 {
@@ -220,13 +220,14 @@ export const HomePageWrapper = styled.section`
     color: #fff;
   }
   .products-container {
-    padding: 40px 0px;
+    padding: 40px 0px 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-
+            box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
+background-color: #fff;
     .heading {
       font-size: 40px;
       font-weight: 600;
@@ -308,6 +309,8 @@ export const HomePageWrapper = styled.section`
     /* PRODUCT SECTION FIX */
     .products-container {
       padding: 20px 0;
+      background: #fff;
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1);
       .heading {
         font-size: 28px;
       }
@@ -337,7 +340,7 @@ export const HomePage = ({ propsData }) => {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            navigation={true}
+            navigation={false}
             modules={[Pagination, Navigation,Autoplay]}
             pagination={{ clickable: true }}
             className="mySwiper"
